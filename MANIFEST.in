@@ -1,0 +1,5 @@
+include hashcat/hashcat/*
+include version
+include README.md
+global-exclude *.swp
+global-exclude *.pyc
