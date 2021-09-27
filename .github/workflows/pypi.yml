@@ -1,0 +1,47 @@
+
+on: 
+    push:
+        branches:
+            - master
+    schedule:
+        # 0400 every Sunday build a new version
+        - cron:  '0 4 * * 0'
+
+name: Auto PyPI Builds
+jobs:
+
+  Build:
+      name: Build
+      runs-on: ubuntu-18.04
+  
+      steps:
+      - name: Checkout hashcat
+        uses: actions/checkout@v2
+        with:
+            persist-credentials: false
+  
+      - name: Build release
+        env:
+            ACCEPT_EULA: Y
+        run: |
+            sudo apt update && \
+            sudo apt-mark hold msodbcsql17 && \
+            sudo apt dist-upgrade -y && \
+            sudo apt install -y python3 python3-pip && \
+            sudo pip3 install -U setuptools && \
+            sudo pip3 install -U pip && \
+            sudo pip3 install -U wheel twine && \
+            ./build.sh && \
+            ls -lah dist
+      - name: Test release
+        run: |
+            python3 -m pip install dist/* && \
+            hashcat --help
+      - name: Deploy release
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
+        run: |
+            twine upload --non-interactive --skip-existing dist/*py3-none-manylinux1_x86_64.whl && \
+            twine upload --non-interactive --skip-existing dist/*win_amd64.whl

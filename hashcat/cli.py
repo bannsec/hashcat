@@ -17,12 +17,13 @@ def main():
     # Light passthrough
     subprocess.run([hashcat_exe_path] + args, cwd=hashcat_dir)
 
-bits = platform.architecture()[0][:-3]
+# hashcat dropped 32-bit support
+#bits = platform.architecture()[0][:-3]
 ext = ".exe" if platform.uname().system == "Windows" else ".bin"
 
 here = os.path.dirname(os.path.realpath(__file__))
 hashcat_dir = os.path.join(here, "hashcat")
-hashcat_exe = "hashcat"  + bits + ext
+hashcat_exe = "hashcat"  + ext
 hashcat_exe_path = os.path.join(hashcat_dir, hashcat_exe)
 
 if __name__ == "__main__":
