@@ -26,7 +26,6 @@ jobs:
         run: |
             sudo apt update && \
             sudo apt-mark hold msodbcsql17 && \
-            sudo apt dist-upgrade -y && \
             sudo apt install -y python3 python3-pip && \
             sudo pip3 install -U setuptools && \
             sudo pip3 install -U pip && \
