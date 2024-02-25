@@ -13,7 +13,10 @@ DOWNDIR=`mktemp -d`
 
 echo "DOWNDIR: ${DOWNDIR}"
 cd ${DOWNDIR}
-HASHCAT_URL=https://github.com/`wget -O- -q https://github.com/hashcat/hashcat/releases/latest | grep .7z | grep href | cut -f 2 -d '"'`
+
+HASHCAT_ASSETS=`wget -O- -q https://github.com/hashcat/hashcat/releases/latest | grep -i include-fragment | grep assets | grep -Eo "src=\"(.+?)\"" | cut -d '"' -f 2`
+#HASHCAT_URL=https://github.com/`wget -O- -q https://github.com/hashcat/hashcat/releases/latest | grep .7z | grep href | cut -f 2 -d '"'`
+HASHCAT_URL=https://github.com/`wget -O- -q $HASHCAT_ASSETS | grep .7z | grep href | cut -f 2 -d '"'`
 
 echo -n "Downloading ${HASHCAT_URL} ... "
 wget -q -O hashcat.7z ${HASHCAT_URL}
