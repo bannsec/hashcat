@@ -30,7 +30,7 @@ setup(
         'Environment :: Console'
     ],
     keywords='hashcat',
-    packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+    packages=['hashcat'],
     install_requires=[],
     extras_require={
         'dev': ['ipython','twine','pytest','python-coveralls','coverage==4.5.4','pytest-cov','pytest-xdist','sphinxcontrib-napoleon', 'sphinx_rtd_theme','sphinx-autodoc-typehints'],
