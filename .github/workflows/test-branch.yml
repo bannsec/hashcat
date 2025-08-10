@@ -1,0 +1,34 @@
+on: 
+    push:
+        branches:
+            - copilot/fix-3
+
+name: Test Branch Build
+jobs:
+
+  Build:
+      name: Test Build
+      runs-on: ubuntu-22.04
+  
+      steps:
+      - name: Checkout hashcat
+        uses: actions/checkout@v4
+        with:
+            persist-credentials: false
+  
+      - name: Build release
+        env:
+            ACCEPT_EULA: Y
+        run: |
+            sudo apt update && \
+            sudo apt-mark hold msodbcsql17 && \
+            sudo apt install -y python3 python3-pip && \
+            sudo pip3 install -U setuptools && \
+            sudo pip3 install -U pip && \
+            sudo pip3 install -U wheel twine && \
+            ./build.sh && \
+            ls -lah dist
+      - name: Test release
+        run: |
+            python3 -m pip install dist/*manylinux1*.whl && \
+            hashcat --help

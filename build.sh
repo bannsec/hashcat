@@ -27,7 +27,7 @@ mv * ${HASHCAT_DIR}
 rm -rf ${DOWNDIR}
 echo '[ OK ]'
 
-VERSION=`${HASHCAT_DIR}/hashcat.bin --version | sed 's/^v//'`
+VERSION=`date +%y.%m.%d`
 echo -n "Setting version ... "
 echo ${VERSION} > ${DIR}/version
 echo [ ${VERSION} ]
