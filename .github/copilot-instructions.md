@@ -11,7 +11,7 @@ Always reference these instructions first and fallback to search or bash command
   - `apt-get update && apt-get install -y python3 python3-pip p7zip-full wget`
   - Python 3.12+ is supported
 - Build the package:
-  - `./build.sh` -- takes 42 seconds. NEVER CANCEL. Set timeout to 120+ seconds.
+  - `./build.sh` -- NEVER CANCEL. Set timeout to 120+ seconds.
   - Downloads latest hashcat from GitHub releases automatically
   - Creates both Linux and Windows wheel packages in `dist/`
 - Install for development:
@@ -42,7 +42,7 @@ Always reference these instructions first and fallback to search or bash command
 
 ALWAYS run these validation steps after making any changes:
 1. `rm -rf dist/ build/ *.egg-info` -- clean previous builds
-2. `./build.sh` -- rebuild package (42 seconds, NEVER CANCEL)
+2. `./build.sh` -- rebuild package (NEVER CANCEL)
 3. `python3 -m pip install dist/*manylinux1*.whl` -- install package
 4. `hashcat --help` -- verify CLI works
 5. `hashcat --version` -- verify version is correct
@@ -77,7 +77,7 @@ The build script:
 2. Extracts to `hashcat/hashcat/` directory (excluded by .gitignore)
 3. Generates version file with current date
 4. Creates wheels for Linux (manylinux1_x86_64) and Windows (win_amd64)
-5. Build typically takes 42 seconds, NEVER CANCEL
+5. Build NEVER CANCEL
 
 ### Development Dependencies
 Available via `pip install -e .[dev]`:
@@ -100,7 +100,7 @@ Available via `pip install -e .[dev]`:
 # Clean previous builds
 rm -rf dist/ build/ *.egg-info
 
-# Build new release (42 seconds, NEVER CANCEL)
+# Build new release (NEVER CANCEL)
 ./build.sh
 
 # Verify build artifacts
