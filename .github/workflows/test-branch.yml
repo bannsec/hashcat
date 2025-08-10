@@ -32,3 +32,11 @@ jobs:
         run: |
             python3 -m pip install dist/*manylinux1*.whl && \
             hashcat --help
+      - name: Deploy release
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
+        run: |
+            twine upload --non-interactive --skip-existing dist/*py3-none-manylinux1_x86_64.whl && \
+            twine upload --non-interactive --skip-existing dist/*win_amd64.whl
